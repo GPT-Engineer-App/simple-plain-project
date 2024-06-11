@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Box, Button, Heading, Progress, Radio, RadioGroup, Stack, Text, VStack, Input, Textarea, Select, Slider, SliderTrack, SliderFilledTrack, SliderThumb } from '@chakra-ui/react';
-import { ArrowBackIcon, ArrowForwardIcon } from '@chakra-ui/icons';
+import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 
 const InteractiveForm = () => {
   const [step, setStep] = useState(1);
@@ -125,8 +125,8 @@ const InteractiveForm = () => {
       )}
 
       <Stack direction="row" spacing={4} mt={8} justify="space-between">
-        <Button onClick={handlePrevious} isDisabled={step === 1} leftIcon={<ArrowBackIcon />}>Previous</Button>
-        <Button onClick={handleNext} colorScheme="orange" rightIcon={<ArrowForwardIcon />}>Next</Button>
+        <Button onClick={handlePrevious} isDisabled={step === 1} leftIcon={<FaArrowLeft />}>Previous</Button>
+        <Button onClick={handleNext} colorScheme="orange" rightIcon={<FaArrowRight />}>Next</Button>
       </Stack>
     </Box>
   );
