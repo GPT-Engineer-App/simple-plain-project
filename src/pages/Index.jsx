@@ -1,5 +1,5 @@
-import { Container, Text, VStack, Heading, Button, HStack, Box, Link } from "@chakra-ui/react";
-import { FaRocket } from "react-icons/fa";
+import { Box, Container, Text, VStack, Heading, Button, HStack, Link, SimpleGrid, Card, CardHeader, CardBody, Icon } from "@chakra-ui/react";
+import { FaRocket, FaArrowDown, FaArrowUp } from "react-icons/fa";
 
 const Index = () => {
   return (
@@ -26,6 +26,39 @@ const Index = () => {
           </Button>
         </VStack>
       </Container>
+      <Box bg="gray.100" py={16}>
+        <Container maxW="container.lg">
+          <VStack spacing={8} textAlign="center">
+            <Heading as="h2" size="xl">Achieve groundbreaking transformation in just 30 days</Heading>
+            <SimpleGrid columns={{ base: 1, md: 2 }} spacing={10}>
+              <Card>
+                <CardHeader>
+                  <Heading as="h3" size="md">SaaS Spend</Heading>
+                </CardHeader>
+                <CardBody>
+                  <VStack spacing={4}>
+                    <Icon as={FaArrowDown} color="orange.400" boxSize={8} />
+                    <Text fontSize="4xl" fontWeight="bold">-50%</Text>
+                    <Text>Reduce the amount you are spending on tools by up to 50%.</Text>
+                  </VStack>
+                </CardBody>
+              </Card>
+              <Card>
+                <CardHeader>
+                  <Heading as="h3" size="md">Manual Processes</Heading>
+                </CardHeader>
+                <CardBody>
+                  <VStack spacing={4}>
+                    <Icon as={FaArrowUp} color="green.400" boxSize={8} />
+                    <Text fontSize="4xl" fontWeight="bold">8hr</Text>
+                    <Text>Automate and remove manual processes saving up to 8hrs a week.</Text>
+                  </VStack>
+                </CardBody>
+              </Card>
+            </SimpleGrid>
+          </VStack>
+        </Container>
+      </Box>
     </Box>
   );
 };
