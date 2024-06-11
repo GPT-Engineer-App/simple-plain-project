@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Box, Button, Heading, Progress, Radio, RadioGroup, Stack, Text, VStack, Input, Textarea, Select } from '@chakra-ui/react';
+import { Box, Button, Heading, Progress, Radio, RadioGroup, Stack, Text, VStack, Input, Textarea, Select, Slider, SliderTrack, SliderFilledTrack, SliderThumb } from '@chakra-ui/react';
+import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 
 const InteractiveForm = () => {
   const [step, setStep] = useState(1);
@@ -80,10 +81,20 @@ const InteractiveForm = () => {
       )}
 
       {step === 4 && (
-        <>
-          <Text mb={4}>What is your budget?</Text>
-          <Input placeholder="Budget" value={budget} onChange={(e) => setBudget(e.target.value)} mb={4} />
-        </>
+        <Box p={4} borderWidth={1} borderRadius="lg" boxShadow="lg" mb={4}>
+          <Text fontSize="lg" fontWeight="bold" mb={2}>What is your budget?</Text>
+          <Box p={4} borderWidth={1} borderRadius="lg" boxShadow="md" mb={4}>
+            <Text fontSize="4xl" fontWeight="bold">$13,000</Text>
+            <Text fontSize="sm" color="gray.500">+ any applicable taxes</Text>
+            <Text mt={2} fontSize="sm">A project's cost is dependent on how much customization is needed. All custom projects are billed hourly.</Text>
+            <Slider aria-label="budget-slider" defaultValue={13000} min={0} max={50000} step={1000} mt={4}>
+              <SliderTrack>
+                <SliderFilledTrack bg="orange.400" />
+              </SliderTrack>
+              <SliderThumb />
+            </Slider>
+          </Box>
+        </Box>
       )}
 
       {step === 5 && (
@@ -113,9 +124,9 @@ const InteractiveForm = () => {
         </>
       )}
 
-      <Stack direction="row" spacing={4} mt={8}>
-        <Button onClick={handlePrevious} isDisabled={step === 1}>Previous</Button>
-        <Button onClick={handleNext} colorScheme="orange">Next</Button>
+      <Stack direction="row" spacing={4} mt={8} justify="space-between">
+        <Button onClick={handlePrevious} isDisabled={step === 1} leftIcon={<FaArrowLeft />}>Previous</Button>
+        <Button onClick={handleNext} colorScheme="orange" rightIcon={<FaArrowRight />}>Next</Button>
       </Stack>
     </Box>
   );
