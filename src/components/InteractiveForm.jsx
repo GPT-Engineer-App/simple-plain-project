@@ -1,12 +1,21 @@
 import React, { useState } from 'react';
-import { Box, Button, Heading, Progress, Radio, RadioGroup, Stack, Text, VStack } from '@chakra-ui/react';
+import { Box, Button, Heading, Progress, Radio, RadioGroup, Stack, Text, VStack, Input, Textarea, Select } from '@chakra-ui/react';
 
 const InteractiveForm = () => {
   const [step, setStep] = useState(1);
   const [value, setValue] = useState('');
+  const [projectName, setProjectName] = useState('');
+  const [projectDescription, setProjectDescription] = useState('');
+  const [dataMigration, setDataMigration] = useState('');
+  const [dataMigrationDetails, setDataMigrationDetails] = useState('');
+  const [budget, setBudget] = useState('');
+  const [deadline, setDeadline] = useState('');
+  const [problems, setProblems] = useState('');
+  const [contactInfo, setContactInfo] = useState('');
+  const [timezone, setTimezone] = useState('');
 
   const handleNext = () => {
-    if (step < 10) {
+    if (step < 7) {
       setStep(step + 1);
     }
   };
@@ -21,21 +30,89 @@ const InteractiveForm = () => {
     <Box p={8} borderWidth={1} borderRadius="lg" boxShadow="lg" maxW="md" mx="auto">
       <Heading as="h2" size="lg" mb={4}>Your Vision, Our Design.</Heading>
       <Text mb={4}>Share your ideas, and let's craft tailored systems and workflows that fit your needs.</Text>
-      <Text mb={2}>Step {step} of 10</Text>
-      <Progress value={(step / 10) * 100} size="sm" mb={4} />
-      <RadioGroup onChange={setValue} value={value}>
-        <VStack align="start" spacing={4}>
-          <Radio value="option1">No, I am starting fresh!</Radio>
-          <Radio value="option2">Yes, I have an existing workflow that needs additions.</Radio>
-          <Radio value="option3">Yes, I have a broken workflow that needs to be fixed.</Radio>
-        </VStack>
-      </RadioGroup>
-      <Text mt={4} mb={2}>Select the platform(s) you’re currently using.</Text>
-      <Stack direction="row" spacing={4} wrap="wrap">
-        {['Coda', 'Notion', 'Airtable', 'ClickUp', 'Asana', 'Trello', 'Monday.com', 'Google Sheets', 'Microsoft Excel', 'PowerApps'].map(platform => (
-          <Button key={platform} variant="outline" size="sm">{platform}</Button>
-        ))}
-      </Stack>
+      <Text mb={2}>Step {step} of 7</Text>
+      <Progress value={(step / 7) * 100} size="sm" mb={4} />
+
+      {step === 1 && (
+        <>
+          <Text mb={4}>Do you have any workflows or automations running already?</Text>
+          <RadioGroup onChange={setValue} value={value}>
+            <VStack align="start" spacing={4}>
+              <Radio value="option1">No, I am starting fresh!</Radio>
+              <Radio value="option2">Yes, I have an existing system that needs additions.</Radio>
+              <Radio value="option3">Yes, I have a system that needs fixing.</Radio>
+            </VStack>
+          </RadioGroup>
+          <Text mt={4} mb={2}>Select the platform(s) you’re currently using.</Text>
+          <Stack direction="row" spacing={4} wrap="wrap">
+            {['Coda', 'Notion', 'Airtable', 'ClickUp', 'Asana', 'Trello', 'Monday.com', 'Google Sheets', 'Microsoft Excel', 'PowerApps'].map(platform => (
+              <Button key={platform} variant="outline" size="sm">{platform}</Button>
+            ))}
+          </Stack>
+        </>
+      )}
+
+      {step === 2 && (
+        <>
+          <Text mb={4}>Give your project a memorable name</Text>
+          <Input placeholder="Project Name" value={projectName} onChange={(e) => setProjectName(e.target.value)} mb={4} />
+          <Text mb={4}>Give us a brief description about your project</Text>
+          <Textarea placeholder="Project Description" value={projectDescription} onChange={(e) => setProjectDescription(e.target.value)} mb={4} />
+        </>
+      )}
+
+      {step === 3 && (
+        <>
+          <Text mb={4}>Does the project require data migration?</Text>
+          <RadioGroup onChange={setDataMigration} value={dataMigration}>
+            <VStack align="start" spacing={4}>
+              <Radio value="yes">Yes</Radio>
+              <Radio value="no">No</Radio>
+            </VStack>
+          </RadioGroup>
+          {dataMigration === 'yes' && (
+            <>
+              <Text mt={4} mb={2}>Please tell us about your data migration requirements</Text>
+              <Textarea placeholder="Data Migration Requirements" value={dataMigrationDetails} onChange={(e) => setDataMigrationDetails(e.target.value)} mb={4} />
+            </>
+          )}
+        </>
+      )}
+
+      {step === 4 && (
+        <>
+          <Text mb={4}>What is your budget?</Text>
+          <Input placeholder="Budget" value={budget} onChange={(e) => setBudget(e.target.value)} mb={4} />
+        </>
+      )}
+
+      {step === 5 && (
+        <>
+          <Text mb={4}>When do you want to get this done by?</Text>
+          <Input type="date" value={deadline} onChange={(e) => setDeadline(e.target.value)} mb={4} />
+        </>
+      )}
+
+      {step === 6 && (
+        <>
+          <Text mb={4}>What problems are you looking to solve?</Text>
+          <Textarea placeholder="Problems" value={problems} onChange={(e) => setProblems(e.target.value)} mb={4} />
+        </>
+      )}
+
+      {step === 7 && (
+        <>
+          <Text mb={4}>Collect contact information</Text>
+          <Input placeholder="Contact Information" value={contactInfo} onChange={(e) => setContactInfo(e.target.value)} mb={4} />
+          <Text mb={4}>Timezone options</Text>
+          <Select placeholder="Select Timezone" value={timezone} onChange={(e) => setTimezone(e.target.value)} mb={4}>
+            {['PST', 'MST', 'CST', 'EST', 'GMT', 'CET', 'IST', 'CST', 'JST', 'AEST'].map(tz => (
+              <option key={tz} value={tz}>{tz}</option>
+            ))}
+          </Select>
+        </>
+      )}
+
       <Stack direction="row" spacing={4} mt={8}>
         <Button onClick={handlePrevious} isDisabled={step === 1}>Previous</Button>
         <Button onClick={handleNext} colorScheme="orange">Next</Button>
