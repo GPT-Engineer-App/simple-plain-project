@@ -38,6 +38,11 @@ UserFile // table: user_files
     file_name: string
     file_description: string
 
+FormResult // table: form results
+    id: number
+    created_at: string
+    response: object
+
 Message // table: messages
     id: number
     created_at: string
@@ -61,6 +66,26 @@ export const useAddUserData = () => {
     });
 };
 
+export const useUpdateUserData = () => {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (updatedUserData) => fromSupabase(supabase.from('user_data').update(updatedUserData).eq('id', updatedUserData.id)),
+        onSuccess: () => {
+            queryClient.invalidateQueries('user_data');
+        },
+    });
+};
+
+export const useDeleteUserData = () => {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (id) => fromSupabase(supabase.from('user_data').delete().eq('id', id)),
+        onSuccess: () => {
+            queryClient.invalidateQueries('user_data');
+        },
+    });
+};
+
 export const useTasks = () => useQuery({
     queryKey: ['tasks'],
     queryFn: () => fromSupabase(supabase.from('tasks').select('*')),
@@ -70,6 +95,26 @@ export const useAddTask = () => {
     const queryClient = useQueryClient();
     return useMutation({
         mutationFn: (newTask) => fromSupabase(supabase.from('tasks').insert([newTask])),
+        onSuccess: () => {
+            queryClient.invalidateQueries('tasks');
+        },
+    });
+};
+
+export const useUpdateTask = () => {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (updatedTask) => fromSupabase(supabase.from('tasks').update(updatedTask).eq('id', updatedTask.id)),
+        onSuccess: () => {
+            queryClient.invalidateQueries('tasks');
+        },
+    });
+};
+
+export const useDeleteTask = () => {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (id) => fromSupabase(supabase.from('tasks').delete().eq('id', id)),
         onSuccess: () => {
             queryClient.invalidateQueries('tasks');
         },
@@ -91,6 +136,61 @@ export const useAddUserFile = () => {
     });
 };
 
+export const useUpdateUserFile = () => {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (updatedUserFile) => fromSupabase(supabase.from('user_files').update(updatedUserFile).eq('id', updatedUserFile.id)),
+        onSuccess: () => {
+            queryClient.invalidateQueries('user_files');
+        },
+    });
+};
+
+export const useDeleteUserFile = () => {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (id) => fromSupabase(supabase.from('user_files').delete().eq('id', id)),
+        onSuccess: () => {
+            queryClient.invalidateQueries('user_files');
+        },
+    });
+};
+
+export const useFormResults = () => useQuery({
+    queryKey: ['form_results'],
+    queryFn: () => fromSupabase(supabase.from('form_results').select('*')),
+});
+
+export const useAddFormResult = () => {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (newFormResult) => fromSupabase(supabase.from('form_results').insert([newFormResult])),
+        onSuccess: () => {
+            queryClient.invalidateQueries('form_results');
+        },
+    });
+};
+
+export const useUpdateFormResult = () => {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (updatedFormResult) => fromSupabase(supabase.from('form_results').update(updatedFormResult).eq('id', updatedFormResult.id)),
+        onSuccess: () => {
+            queryClient.invalidateQueries('form_results');
+        },
+    });
+};
+
+export const useDeleteFormResult = () => {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (id) => fromSupabase(supabase.from('form_results').delete().eq('id', id)),
+        onSuccess: () => {
+            queryClient.invalidateQueries('form_results');
+        },
+    });
+};
+
 export const useMessages = () => useQuery({
     queryKey: ['messages'],
     queryFn: () => fromSupabase(supabase.from('messages').select('*')),
@@ -100,6 +200,26 @@ export const useAddMessage = () => {
     const queryClient = useQueryClient();
     return useMutation({
         mutationFn: (newMessage) => fromSupabase(supabase.from('messages').insert([newMessage])),
+        onSuccess: () => {
+            queryClient.invalidateQueries('messages');
+        },
+    });
+};
+
+export const useUpdateMessage = () => {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (updatedMessage) => fromSupabase(supabase.from('messages').update(updatedMessage).eq('id', updatedMessage.id)),
+        onSuccess: () => {
+            queryClient.invalidateQueries('messages');
+        },
+    });
+};
+
+export const useDeleteMessage = () => {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (id) => fromSupabase(supabase.from('messages').delete().eq('id', id)),
         onSuccess: () => {
             queryClient.invalidateQueries('messages');
         },
